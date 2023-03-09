@@ -9,13 +9,13 @@ import {SafeAreaView, Text} from 'react-native';
 //   );
 // };
 
-// if 문을 JSX문 바깥 쪽에 구현하여 문제 해결
+// if 문을 JSX 문 바깥쪽에 구현하여 문제 해결
 // const App = () => {
-//   const isLoading = true;
+//   const isLoading = false;
 //   if (isLoading) {
 //     return (
 //       <SafeAreaView>
-//         <Text>...laoding</Text>
+//         <Text>Loading...</Text>
 //       </SafeAreaView>
 //     );
 //   }
@@ -26,9 +26,9 @@ import {SafeAreaView, Text} from 'react-native';
 //   );
 // };
 
-// 조건문을 단축 평가 코드로 바궈 문제 해결
+// 조건문을 단축 평가 코드로 바꿔 문제 해결
 // const App = () => {
-//   const isLoading = true;
+//   const isLoading = false;
 //   return (
 //     <SafeAreaView>
 //       {isLoading && <Text>Loading...</Text>}
@@ -37,17 +37,19 @@ import {SafeAreaView, Text} from 'react-native';
 //   );
 // };
 
-// JSX 문을 변수에 담아 문제 해결 & 삼항 연산자
+// JSX 문을 변수에 담아 문제 해결
 // const App = () => {
-//   const isLoading = true;
+//   const isLoading = false;
 //   const children = isLoading ? (
 //     <Text>Loading...</Text>
 //   ) : (
 //     <Text>Hello JSX world!</Text>
 //   );
+
 //   return <SafeAreaView>{children}</SafeAreaView>;
 // };
 
+// 배열과 JSX 구문
 // 배열에 담긴 JSX 렌더링 예
 // const App = () => {
 //   const children = [
@@ -55,6 +57,7 @@ import {SafeAreaView, Text} from 'react-native';
 //     <Text>Hello world!</Text>,
 //     <Text>Hello world!</Text>,
 //   ];
+
 //   return <SafeAreaView>{children}</SafeAreaView>;
 // };
 
@@ -65,11 +68,11 @@ import {SafeAreaView, Text} from 'react-native';
 //   return <SafeAreaView>{children}</SafeAreaView>;
 // };
 
-// 조금식 다른 100개의 컴포넌트 배열을 만드는 예
+// 조금씩 다른 100개의 컴포넌트 배열을 만드는 예
 const App = () => {
   const children = new Array(100)
     .fill(null)
-    .map((_, index) => <Text>Hello world! {index}</Text>);
+    .map((notUsed, index) => <Text>Hello world! {index}</Text>);
 
   return <SafeAreaView>{children}</SafeAreaView>;
 };
