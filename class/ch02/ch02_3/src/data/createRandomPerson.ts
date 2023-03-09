@@ -1,12 +1,12 @@
-import type {IPerson} from './IPerson';
+import {IPerson} from './IPerson';
 import * as F from './faker';
 import * as U from './util';
 
-const createRandomPerson = (): IPerson => {
+export const createRandomPerson = (): IPerson => {
   const name = F.randomName();
   return {
     id: F.randomId(),
-    createdDate: F.randomDate(),
+    createdData: F.randomDate(),
     modifiedDate: new Date(),
     name,
     email: F.randomEmail(),
@@ -20,5 +20,3 @@ const createRandomPerson = (): IPerson => {
     },
   };
 };
-
-export default createRandomPerson;
