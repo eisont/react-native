@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, ScrollView, View, Image} from 'react-native';
 import * as D from '../data';
 
-const avatars = D.makeArray(200).map(notUsed => D.randomAvatarUrl());
+const avatars = D.makeArray(200).map(_ => D.randomAvatarUrl());
 
 const Content = () => {
   const children = avatars.map((avatarUrl, index) => (
