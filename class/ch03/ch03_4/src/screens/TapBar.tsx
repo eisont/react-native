@@ -1,19 +1,19 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View, Text, Image} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as D from '../data';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const name = D.randomName();
 const avatarUrl = D.randomAvatarUrl(name);
 
-const TopBar = () => {
+const TapBar = () => {
   return (
     <View style={[styles.view]}>
       <Image style={styles.avatar} source={{uri: avatarUrl}} />
       <View style={styles.centerView}>
         <Text style={[styles.text]}>{name}</Text>
       </View>
-      <MaterialCommunityIcons name="menu" size={30} color="white" />
+      <Icon name="menu" size={24} color="white" />
     </View>
   );
 };
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   centerView: {flex: 1},
 });
 
-export default TopBar;
+export default TapBar;

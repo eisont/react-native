@@ -24,10 +24,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    padding: 5,
+    padding: 10,
     backgroundColor: '#0d47a1',
   },
-  text: {fontSize: 20, color: 'white'},
 });
 
 export default BottomBar;
