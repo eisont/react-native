@@ -1,19 +1,38 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, View, Text, FlatList} from 'react-native';
+import Country from './Country';
+import * as D from '../data';
 
 const Fetch = () => {
-  const title = 'Fetch';
+  const [countries, setCountries] = useState<D.ICountry[]>([]);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    D.getCountries().then(setCountries).catch(setError);
+  }, []);
+
   return (
     <View style={[styles.view]}>
-      <Text style={[styles.text]}>{title}</Text>
+      <Text style={[styles.title]}>Fetch</Text>
+
+      {error && <Text>{error.message}</Text>}
+
+      <FlatList
+        data={countries}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item}) => <Country country={item} />}
+        keyExtractor={(_, index) => index.toString()}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  view: {flex: 1, padding: 5, backgroundColor: '#ec407a'},
-  text: {fontSize: 20, color: 'white'},
-});
-
 export default Fetch;
+
+const styles = StyleSheet.create({
+  view: {flex: 1, alignItems: 'center', backgroundColor: '#ec407a'},
+  title: {fontSize: 20, fontWeight: '600'},
+  separator: {borderBottomColor: '#e3f2fd', borderBottomWidth: 1},
+});

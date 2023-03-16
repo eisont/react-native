@@ -1,19 +1,34 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
+import type {FC} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import * as D from '../data';
 
-const CopyMe = () => {
-  const title = 'CopyMe';
+export type CountryProps = {
+  country: D.ICountry;
+};
+
+const Country: FC<CountryProps> = ({country}) => {
+  const {name, capital, subregion, region, population} = country;
+
   return (
     <View style={[styles.view]}>
-      <Text style={[styles.text]}>{title}</Text>
+      <View>
+        <Text style={[styles.name]}>{`${name.common}`}</Text>
+      </View>
+      <View>
+        <Text>{`capital: ${capital}`}</Text>
+        <Text>{`population: ${population}`}</Text>
+        <Text>{`subregion: ${subregion}`}</Text>
+        <Text>{`region: ${region}`}</Text>
+      </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  view: {flex: 1, padding: 5, backgroundColor: ''},
-  text: {fontSize: 20, color: 'white'},
-});
+export default Country;
 
-export default CopyMe;
+const styles = StyleSheet.create({
+  view: {padding: 5},
+  name: {fontSize: 30, fontWeight: '400'},
+});
