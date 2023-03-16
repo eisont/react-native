@@ -1,14 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {UseClock} from './src/hooks';
 
 const App = () => {
-  const [time, setTime] = useState(new Date());
-  useEffect(() => {
-    const id = setInterval(() => {
-      setTime(new Date()); // App을 재렌더링합니다.
-    }, 0); // 1000 = 1초로 설정하면 좀 느린감이 있어 0초로 설정합니다.
-    return () => clearInterval(id);
-  });
+  const time = UseClock();
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
