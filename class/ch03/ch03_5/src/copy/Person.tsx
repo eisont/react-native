@@ -65,7 +65,7 @@ const Person: FC<PersonProps> = ({person}) => {
           <IconText
             viewStyle={[styles.touchableIcon]}
             onPress={countIconPressed('comment')}
-            name="twitter-retweet"
+            name="sync"
             size={24}
             color="#9c27b0"
             textStyle={[styles.iconText]}
