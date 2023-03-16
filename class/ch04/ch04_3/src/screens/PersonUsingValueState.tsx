@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import type {FC} from 'react';
 import {Image, Text, View, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,31 +14,35 @@ export type PersonProps = {
   person: D.IPerson;
 };
 
-const Person: FC<PersonProps> = ({person}) => {
+const PersonUsingValueState: FC<PersonProps> = ({person: initialPerson}) => {
   const avatarPressed = useCallback(() => Alert.alert('avatar pressed.'), []);
   const deletePressed = useCallback(() => Alert.alert('delete pressed.'), []);
-  const countIconPressed = useCallback(
-    (name: string) => () => Alert.alert(`${name} pressed.`),
-    [],
-  );
+  // initialPerson.count.comment, retweet, heart
+  const [comment, setComment] = useState<number>(0);
+  const [retweet, setRetweet] = useState<number>(0);
+  const [heart, setHeart] = useState<number>(0);
+
+  const commentPressed = useCallback(() => setComment(prev => prev + 1), []);
+  const retweetPressed = useCallback(() => setRetweet(prev => prev + 1), []);
+  const heartPressed = useCallback(() => setHeart(prev => prev + 1), []);
 
   return (
     <View style={[styles.view]}>
       <View style={[styles.leftView]}>
         <Avatar
           imageStyle={[styles.avatar]}
-          uri={person.avatar}
+          uri={initialPerson.avatar}
           size={50}
           onPress={avatarPressed}
         />
       </View>
 
       <View style={[styles.rightView]}>
-        <Text style={[styles.name]}>{person.name} name</Text>
-        <Text style={[styles.email]}>{person.email}email</Text>
+        <Text style={[styles.name]}>{initialPerson.name} name</Text>
+        <Text style={[styles.email]}>{initialPerson.email}email</Text>
         <View style={[styles.dateView]}>
           <Text style={[styles.text]}>
-            {moment(person.createdDate).startOf('day').fromNow()}
+            {moment(initialPerson.createdDate).startOf('day').fromNow()}
           </Text>
           <Icon
             name="trash-can-outline"
@@ -51,37 +55,37 @@ const Person: FC<PersonProps> = ({person}) => {
           numberOfLines={3}
           ellipsizeMode="tail"
           style={[styles.text, styles.comments]}>
-          {person.comments}
+          {initialPerson.comments}
           comments
         </Text>
-        <Image style={[styles.image]} source={{uri: person.image}} />
+        <Image style={[styles.image]} source={{uri: initialPerson.image}} />
         <View style={[styles.countsView]}>
           <IconText
             viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('comment')}
+            onPress={commentPressed}
             name="comment"
             size={24}
             color="#2196f3"
             textStyle={[styles.iconText]}
-            text={person.counts.comment}
+            text={comment}
           />
           <IconText
             viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('comment')}
+            onPress={retweetPressed}
             name="sync"
             size={24}
             color="#9c27b0"
             textStyle={[styles.iconText]}
-            text={person.counts.comment}
+            text={retweet}
           />
           <IconText
             viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('comment')}
+            onPress={heartPressed}
             name="heart"
             size={24}
             color="#f44336"
             textStyle={[styles.iconText]}
-            text={person.counts.comment}
+            text={heart}
           />
         </View>
       </View>
@@ -89,4 +93,4 @@ const Person: FC<PersonProps> = ({person}) => {
   );
 };
 
-export default Person;
+export default PersonUsingValueState;
