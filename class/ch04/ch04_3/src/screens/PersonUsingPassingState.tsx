@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import type {FC} from 'react';
 import {Image, Text, View, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment-with-locales-es6';
 import * as D from '../data';
-import {Avatar, IconText} from '../components';
+import {Avatar} from '../components';
 import {styles} from './Person.style';
+import PersonIcons from './PersonIcons';
 
 moment.locale('ko');
 
@@ -14,23 +15,19 @@ export type PersonProps = {
   person: D.IPerson;
 };
 
-const PersonUsingPassingState: FC<PersonProps> = ({person}) => {
+const PersonUsingPassingState: FC<PersonProps> = ({person: initialPerson}) => {
+  const [person, setPerson] = useState<D.IPerson>({
+    ...initialPerson,
+    counts: {comment: 0, retweet: 0, heart: 0},
+  });
+
   const avatarPressed = useCallback(() => Alert.alert('avatar pressed.'), []);
   const deletePressed = useCallback(() => Alert.alert('delete pressed.'), []);
-  const countIconPressed = useCallback(
-    (name: string) => () => Alert.alert(`${name} pressed.`),
-    [],
-  );
 
   return (
     <View style={[styles.view]}>
       <View style={[styles.leftView]}>
-        <Avatar
-          imageStyle={[styles.avatar]}
-          uri={person.avatar}
-          size={50}
-          onPress={avatarPressed}
-        />
+        <Avatar uri={person.avatar} size={50} onPress={avatarPressed} />
       </View>
 
       <View style={[styles.rightView]}>
@@ -55,35 +52,7 @@ const PersonUsingPassingState: FC<PersonProps> = ({person}) => {
           comments
         </Text>
         <Image style={[styles.image]} source={{uri: person.image}} />
-        <View style={[styles.countsView]}>
-          <IconText
-            viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('comment')}
-            name="comment"
-            size={24}
-            color="#2196f3"
-            textStyle={[styles.iconText]}
-            text={person.counts.comment}
-          />
-          <IconText
-            viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('comment')}
-            name="sync"
-            size={24}
-            color="#9c27b0"
-            textStyle={[styles.iconText]}
-            text={person.counts.comment}
-          />
-          <IconText
-            viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('comment')}
-            name="heart"
-            size={24}
-            color="#f44336"
-            textStyle={[styles.iconText]}
-            text={person.counts.comment}
-          />
-        </View>
+        <PersonIcons person={person} setPerson={setPerson} />
       </View>
     </View>
   );
