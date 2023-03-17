@@ -1,8 +1,8 @@
-/* eslint-disable prettier/prettier */
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {StyleSheet, View, Text, ScrollView} from 'react-native';
 import {Avatar} from '../components';
 import * as D from '../data';
+import {useInterval} from '../hooks';
 
 type IdAndAvatar = Pick<D.IPerson, 'id' | 'avatar'>;
 
@@ -12,17 +12,18 @@ const Interval = () => {
   const toggleStart = useCallback(() => setStart(prev => !prev), []);
   const clearAvatars = useCallback(() => setAvatars(_ => []), []);
 
-  useEffect(() => {
-    const id = setInterval(() => {
+  useInterval(
+    () => {
       if (start) {
-        setAvatars(prev => [
-          ...prev,
+        setAvatars(Avatars => [
+          ...Avatars,
           {id: D.randomId(), avatar: D.randomAvatarUrl()},
         ]);
       }
-    }, 1000);
-    return () => clearInterval(id);
-  }, [start]);
+    },
+    10000,
+    [start],
+  );
 
   const children = avatars.map(({id, avatar}) => (
     <Avatar
