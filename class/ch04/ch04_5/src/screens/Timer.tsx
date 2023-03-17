@@ -1,14 +1,11 @@
 /* eslint-disable prettier/prettier */
-import React, {useState, useEffect, useCallback} from 'react';
+import React from 'react';
 import {StyleSheet, View, Text, Button, ActivityIndicator} from 'react-native';
+import {useTimeout, useToggle} from '../hooks';
 
 const Timer = () => {
-  const [loading, setLoading] = useState(true);
-  const toggleLoading = useCallback(() => setLoading(prev => !prev), []);
-  useEffect(() => {
-    const id = setTimeout(() => setLoading(false), 3000);
-    return () => clearTimeout(id);
-  }, [loading]);
+  const [loading, toggleLoading] = useToggle(true);
+  useTimeout(() => loading && toggleLoading(), 3000, [loading]);
 
   return (
     <View style={[styles.view]}>
