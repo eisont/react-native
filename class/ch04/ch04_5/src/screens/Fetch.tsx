@@ -1,16 +1,18 @@
 /* eslint-disable prettier/prettier */
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Text, FlatList} from 'react-native';
 import Country from './Country';
 import * as D from '../data';
+import {useAsync} from '../hooks';
 
 const Fetch = () => {
-  const [countries, setCountries] = useState<D.ICountry[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    D.getCountries().then(setCountries).catch(setError);
-  }, []);
+  const [Countries, setCountries] = useState<D.ICountry[]>([]);
+  const [error, resetError] = useAsync(async () => {
+    setCountries([]);
+    resetError();
+    const countries = await D.getCountries();
+    setCountries(countries);
+  });
 
   return (
     <View style={[styles.view]}>
@@ -19,7 +21,7 @@ const Fetch = () => {
       {error && <Text>{error.message}</Text>}
 
       <FlatList
-        data={countries}
+        data={Countries}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => <Country country={item} />}
         keyExtractor={(_, index) => index.toString()}
