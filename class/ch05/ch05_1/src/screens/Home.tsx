@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Switch} from 'react-native';
 import {useTheme} from 'react-native-paper';
+import {useToggleTheme} from '../contexts';
 
 const Home = () => {
   const theme = useTheme();
+  const toggleTheme = useToggleTheme();
 
   return (
     <View style={[styles.view, {backgroundColor: theme.colors.background}]}>
@@ -17,6 +19,8 @@ const Home = () => {
           ]}>
           Topbar
         </Text>
+        <View style={[{flex: 1}]} />
+        <Switch value={theme.dark} onValueChange={toggleTheme} />
       </View>
       <View style={styles.content}>
         <Text

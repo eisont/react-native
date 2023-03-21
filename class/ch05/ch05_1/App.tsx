@@ -6,11 +6,12 @@ import {
   MD3DarkTheme as DarkTheme,
   MD3LightTheme as DefaultTheme,
 } from 'react-native-paper';
+import {ToggleThemeProvider} from './src/contexts';
 
 const App = () => {
   const colorScheme = Appearance.getColorScheme();
 
-  const [theme, setTheme] = useState(
+  const [, setTheme] = useState(
     colorScheme === 'dark' ? DarkTheme : DefaultTheme,
   );
 
@@ -21,9 +22,11 @@ const App = () => {
 
   return (
     <PaperProvider theme={DarkTheme}>
-      <SafeAreaView style={[styles.safeAreaView]}>
-        <MainNavigator />
-      </SafeAreaView>
+      <ToggleThemeProvider toggleTheme={toggleTheme}>
+        <SafeAreaView style={[styles.safeAreaView]}>
+          <MainNavigator />
+        </SafeAreaView>
+      </ToggleThemeProvider>
     </PaperProvider>
   );
 };
