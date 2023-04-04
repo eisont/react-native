@@ -1,6 +1,5 @@
-/* eslint-disable prettier/prettier */
-import React, {createContext, ReactNode, useContext} from 'react';
-import type {FC} from 'react';
+import React, {createContext, useContext} from 'react';
+import type {FC, ReactNode} from 'react';
 
 export type ToggleThemeContextType = {
   toggleTheme: () => void;
@@ -9,21 +8,21 @@ export type ToggleThemeContextType = {
 const defaultToggleThemeContext = {
   toggleTheme: () => {},
 };
+
 const ToggleThemeContext = createContext<ToggleThemeContextType>(
   defaultToggleThemeContext,
 );
+
 type ToggleThemeContextProps = {
-  children?: ReactNode;
   toggleTheme: () => void;
+  children: ReactNode;
 };
 
 export const ToggleThemeProvider: FC<ToggleThemeContextProps> = ({
   children,
   toggleTheme,
 }) => {
-  const value = {
-    toggleTheme,
-  };
+  const value = {toggleTheme};
   return (
     <ToggleThemeContext.Provider value={value}>
       {children}
@@ -32,6 +31,6 @@ export const ToggleThemeProvider: FC<ToggleThemeContextProps> = ({
 };
 
 export const useToggleTheme = () => {
-  const toggleTheme = useContext(ToggleThemeContext);
+  const {toggleTheme} = useContext(ToggleThemeContext);
   return toggleTheme;
 };

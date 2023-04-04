@@ -1,43 +1,33 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import {StyleSheet, View, Text, Switch} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {useToggleTheme} from '../contexts';
 
 const Home = () => {
-  const theme = useTheme();
+  const {dark, colors, fonts} = useTheme();
   const toggleTheme = useToggleTheme();
 
   return (
-    <View style={[styles.view, {backgroundColor: theme.colors.background}]}>
-      <View style={[styles.bar, {backgroundColor: theme.colors.primary}]}>
+    <View style={[styles.view, {backgroundColor: colors.background}]}>
+      <View style={[styles.bar, {backgroundColor: colors.primary}]}>
         <Text
-          style={[
-            styles.text,
-            {color: theme.colors.backdrop},
-            theme.fonts.titleMedium,
-          ]}>
+          style={[styles.text, {color: colors.onPrimary}, fonts.titleMedium]}>
           Topbar
         </Text>
-        <View style={[{flex: 1}]} />
-        <Switch value={theme.dark} onValueChange={toggleTheme} />
+        <View style={styles.view} />
+        <Switch value={dark} onValueChange={toggleTheme} />
       </View>
       <View style={styles.content}>
-        <Text
-          style={[
-            styles.text,
-            {color: theme.colors.tertiary},
-            theme.fonts.default,
-          ]}>
+        <Text style={[styles.text, {color: colors.tertiary}, fonts.default]}>
           Welcome to Context world!
         </Text>
       </View>
-      <View style={[styles.bar, {backgroundColor: theme.colors.secondary}]}>
+      <View style={[styles.bar, {backgroundColor: colors.secondary}]}>
         <Text
           style={[
             styles.text,
-            {color: theme.colors.inverseOnSurface},
-            theme.fonts.titleMedium,
+            {color: colors.inverseOnSurface},
+            fonts.titleMedium,
           ]}>
           Bottmbar
         </Text>

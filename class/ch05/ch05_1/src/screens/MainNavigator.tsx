@@ -1,7 +1,5 @@
-/* eslint-disable prettier/prettier */
 import React, {useMemo, useState} from 'react';
 import {BottomNavigation} from 'react-native-paper';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Home from './Home';
 
 const MainNavigator = () => {
@@ -14,13 +12,11 @@ const MainNavigator = () => {
   const renderScene = BottomNavigation.SceneMap({home: Home});
 
   return (
-    <SafeAreaProvider>
-      <BottomNavigation
-        navigationState={{index, routes}}
-        onIndexChange={setIndex}
-        renderScene={renderScene}
-      />
-    </SafeAreaProvider>
+    <BottomNavigation
+      navigationState={{index, routes}}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
+    />
   );
 };
 
