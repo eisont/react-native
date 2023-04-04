@@ -11,7 +11,7 @@ const MainNavigator = () => {
   const [index, setIndex] = useState<number>(0);
   const [routes] = useState([
     {key: 'home', title: 'Home', focusedIcon: 'home'},
-    {key: 'input', title: 'Input', focusedIcon: 'apple-Keyboard-caps'},
+    {key: 'input', title: 'Input', focusedIcon: 'apple-keyboard-caps'},
     {key: 'avoid', title: 'KeyboardAvoid', focusedIcon: 'keyboard-variant'},
     {
       key: 'aware',

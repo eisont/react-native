@@ -3,25 +3,26 @@ import {Appearance, SafeAreaView, StyleSheet} from 'react-native';
 import MainNavigator from './src/screens/MainNavigator';
 import {
   Provider as PaperProvider,
-  MD3DarkTheme as DarkTheme,
-  MD3LightTheme as DefaultTheme,
+  MD3DarkTheme,
+  DefaultTheme,
 } from 'react-native-paper';
 import {ToggleThemeProvider} from './src/contexts';
 
 const App = () => {
+  // 다크모드 & 기본모드 인지 확인코드
   const colorScheme = Appearance.getColorScheme();
 
   const [, setTheme] = useState(
-    colorScheme === 'dark' ? DarkTheme : DefaultTheme,
+    colorScheme === 'dark' ? MD3DarkTheme : DefaultTheme,
   );
 
   const toggleTheme = useCallback(
-    () => setTheme(th => (th.dark ? DefaultTheme : DarkTheme)),
+    () => setTheme(th => (th.dark ? DefaultTheme : MD3DarkTheme)),
     [],
   );
 
   return (
-    <PaperProvider theme={DarkTheme}>
+    <PaperProvider theme={MD3DarkTheme}>
       <ToggleThemeProvider toggleTheme={toggleTheme}>
         <SafeAreaView style={[styles.safeAreaView]}>
           <MainNavigator />

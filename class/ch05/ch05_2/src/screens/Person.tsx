@@ -67,21 +67,21 @@ const Person: FC<PersonProps> = ({person}) => {
           />
           <IconText
             viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('comment')}
+            onPress={countIconPressed('retweet')}
             name="sync"
             size={24}
             color="#9c27b0"
             textStyle={[styles.iconText]}
-            text={person.counts.comment}
+            text={person.counts.retweet}
           />
           <IconText
             viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('comment')}
+            onPress={countIconPressed('heart')}
             name="heart"
             size={24}
             color="#f44336"
             textStyle={[styles.iconText]}
-            text={person.counts.comment}
+            text={person.counts.heart}
           />
         </View>
       </View>

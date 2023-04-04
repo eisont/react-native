@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
-import React, {useCallback, useState} from 'react';
+import React from 'react';
+import {useCallback, useState} from 'react';
 import {FlatList, StyleSheet, Switch, Text, View} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import {useToggleTheme} from '../contexts';
 import * as D from '../data';
+import {useToggleTheme} from '../contexts';
 import Person from './Person';
 
 const People = () => {
@@ -11,15 +12,15 @@ const People = () => {
   const theme = useTheme();
   const toggleTheme = useToggleTheme();
   const add = useCallback(() => {
-    setPeople(Pe => [...Pe, D.createRandomPerson()]);
+    setPeople(pe => [...pe, D.createRandomPerson()]);
   }, []);
   const removeAll = useCallback(() => {
-    setPeople(() => []);
+    setPeople(_ => []);
   }, []);
 
   return (
     <View style={[styles.view, {backgroundColor: theme.colors.surface}]}>
-      <View style={[styles.topBar, {backgroundColor: theme.colors.primary}]}>
+      <View style={[styles.topBar, {backgroundColor: theme.colors.surface}]}>
         <Text onPress={add} style={styles.text}>
           add
         </Text>
@@ -31,8 +32,8 @@ const People = () => {
       </View>
       <FlatList
         data={people}
-        renderItem={({item}) => <Person person={item} />}
-        keyExtractor={ii => ii.id}
+        renderItem={it => <Person person={it} />}
+        keyExtractor={it => it.id}
       />
     </View>
   );
